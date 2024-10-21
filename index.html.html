@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+       
+        body {
+            background: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"], 
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus, 
+        input[type="number"]:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+            outline: none;
+        }
+
+      
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+       
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            justify-content: flex-start;
+        }
+
+        .checkbox-container input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid #6a11cb;
+            border-radius: 4px;
+            position: relative;
+            outline: none;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .checkbox-container input:checked {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+        }
+
+        .checkbox-container input:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .checkbox-label {
+            font-size: 1rem;
+            color: #444;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Password Generator</h1>
+        <form id="sub">
+            <input type="text" id="name" placeholder="Generated Password" readonly>
+            <button id="btt" type="button">Copy</button>
+            <input type="number" value="8" min="5" max="15" id="pass" placeholder="Password Length">
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="nums">
+                <label for="nums" class="checkbox-label">Numbers</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="cap">
+                <label for="cap" class="checkbox-label">Capital Letters</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="smal">
+                <label for="smal" class="checkbox-label">Small Letters</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="sym">
+                <label for="sym" class="checkbox-label">Symbols</label>
+            </div>
+            <button type="submit">Generate Password</button>
+        </form>
+    </div>
+
+    <script>
+        var a = document.querySelector("#name");
+        var b = document.querySelector("#btt");
+        var c = document.querySelector("#pass");
+        var d = document.querySelector("#nums");
+        var e = document.querySelector("#cap");
+        var f = document.querySelector("#smal");
+        var g = document.querySelector("#sym");
+        var forms = document.querySelector("#sub");
+
+        b.addEventListener("click", async () => {
+            var pa = a.value;
+            if (pa) {
+                await navigator.clipboard.writeText(pa);
+                alert("Content copied to clipboard!");
+            } else {
+                alert("There is nothing to copy.");
+            }
+        });
+
+        function randoms(min, max) {
+            var limi = max - min + 1;
+            return String.fromCharCode(Math.floor(Math.random() * limi) + min);
+        }
+
+        function capital() {
+            return randoms(65, 90);
+        }
+
+        function small() {
+            return randoms(97, 122);
+        }
+
+        function numbers() {
+            return randoms(48, 57);
+        }
+
+        function symbolss() {
+            var symbols = "~!@#$%^&*(){}[]<>?/\\|.,";
+            return symbols[Math.floor(Math.random() * symbols.length)];
+        }
+
+        var arr = [
+            { element: d, fun: numbers },
+            { element: e, fun: capital },
+            { element: f, fun: small },
+            { element: g, fun: symbolss }
+        ];
+
+        forms.addEventListener("submit", (e) => {
+            e.preventDefault();
+            var cot = parseInt(c.value);
+            var cots = "";
+
+            var cotss = arr.filter(({ element }) => element.checked);
+
+            for (let i = 0; i < cot; i++) {
+                var not = Math.floor(Math.random() * cotss.length);
+                var nots = cotss[not].fun();
+                cots += nots;
+            }
+            a.value = cots; 
+        });
+    </script>
+</body>
+</html>
