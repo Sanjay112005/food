@@ -3,222 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
+    <title>Document</title>
     <style>
-       
-        body {
-            background: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        *{
             margin: 0;
             padding: 0;
-            height: 100vh;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body{
+            background-color: #2f3640;
+            color: #dcdde1;
+            padding: 1rem;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
-
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 16px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 25px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        input[type="text"], 
-        input[type="number"] {
+        .main{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            max-width: 1200px;
+            padding: 10px 0;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-
-        input[type="text"]:focus, 
-        input[type="number"]:focus {
-            border-color: #6a11cb;
-            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
-            outline: none;
+        .mains{
+            display: flex;
+            gap: 0.5rem;
         }
-
-      
-        button {
-            background-color: #2575fc;
-            color: white;
-            padding: 15px;
+        .mains button{
+            width: 100px;
+            height: 40px;
             border: none;
-            border-radius: 8px;
+            background-color: #44bd32;
+            color: #fff;
+            border: 2px solid #27ae60;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s, transform 0.3s;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-       
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            justify-content: flex-start;
-        }
-
-        .checkbox-container input {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            border: 2px solid #6a11cb;
-            border-radius: 4px;
-            position: relative;
-            outline: none;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        .checkbox-container input:checked {
-            background-color: #6a11cb;
-            border-color: #6a11cb;
-        }
-
-        .checkbox-container input:checked::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 1px;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 2px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .checkbox-label {
+            transition: all 0.3s ease;
             font-size: 1rem;
-            color: #444;
+            border-radius: 4px;
         }
+        .mains button:hover, .mains .btn-clicked{
+            background-color: #273c75;
+            transform: scale(1.08);
+        }
+        #search{
+            flex: 1;
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            padding: 0 15px;
+            border: 2px solid #44bd32;
+            border-radius: 4px;
+            outline: none;
+            font-size: 1rem;
+            background: #353b48;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        #search:focus{
+            border-color: #e1b12c;
+            background: #2f3640;
+        }
+        .images{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .imag{
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+        .imag img{
+            width: 220px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            transition: transform 0.5s ease;
+        }
+        .imag:hover{
+            transform: translateY(-10px) scale(1.05);
+        }
+        .imag:hover img{
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px){
+            .images{
+                gap: 0.5rem;
+            }
+            .imag img{
+                width: 180px;
+                height: 150px;
+            }
+            .mains button, #search{
+                font-size: 0.9rem;
+                height: 35px;
+            }
+        }
+        @media (max-width: 480px){
+            .mains{
+                flex-direction: row;
+                
+                align-items: center;
+                gap: 0.6rem;
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px;
             }
-            h1 {
-                font-size: 1.6rem;
+
+            .mains button{
+               height: 24px;
+               width: 85px;
+
+
             }
-            button {
-                font-size: 1rem;
+            #search{
+          width: 300px;
+          font-size: 15px;
+          padding: 2.4px 0px;
+            }
+
+            .main{
+                flex-direction: column;
+                align-items: center;
+                
+            }
+            .imag img{
+                width: 150px;
+                height: 130px;
             }
         }
-    </style>
-</head>
+        </style>
+</head> 
 <body>
-    <div class="container">
-        <h1>Simple Password Generator</h1>
-        <form id="sub">
-            <input type="text" id="name" placeholder="Generated Password" readonly>
-            <button id="btt" type="button">Copy</button>
-            <input type="number" value="8" min="5" max="15" id="pass" placeholder="Password Length">
-            
-            <div class="checkbox-container">
-                <input type="checkbox" id="nums">
-                <label for="nums" class="checkbox-label">Numbers</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="cap">
-                <label for="cap" class="checkbox-label">Capital Letters</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="smal">
-                <label for="smal" class="checkbox-label">Small Letters</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="sym">
-                <label for="sym" class="checkbox-label">Symbols</label>
-            </div>
-            <button type="submit">Generate Password</button>
-        </form>
+    <div class="main">
+        <div class="mains">
+        <button class="btt btn-clicked " data-filter="all">All</button>
+        <button class="btt "  data-filter="naruto">Naruto</button>
+        <button class="btt "  data-filter="one">One Piece</button>
+        <button class="btt "  data-filter="aot">AOT</button></div>
+        <input type="text" placeholder="search products" id="search">
     </div>
 
+    <div class="images">
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGofT73z2t38b69DwNnRew5eovtXF_Vxnvg&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp8FTRk5x0uMC-FZZkUP74ZE3_Uw0zeut8ZA&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3_dVIXCXEkmRGHmRNGc6sySTCdLzbqUui0g&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO392WyrPsmM61V2xoYsZxnM5CaD0nXqIXMg&s" alt=""></div>
+        <div class="imag"  data-item="one "><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvboF9p2YRbgvsXWkuqpt1y7wYtf0EI01oFw&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttNOi99zc76PYkmU6-HnVk55wElnOS9B97w&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNR_iHrmBQpTFX3UqF9muGx99lNqmnrGDf1w&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPJljTkjs4gEfqU-TjDS5AG6ZD6NCWd0t5Q&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYBVUuuP2kfZsSglFwaUjxrt1T59wvoc86CQ&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8O6hgX8LDP7wHNGPGC0g4ViCcj1p2RFRJbA&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYSnBryk757WnzauwNInYu6YGIrL0BneIMw&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJLzvXLD7JhLYoCU80MRgv9ZBBpm9CeljfA&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzJ1B03hg0mXm1FiyotGbyPCkdTRt5BkVo7g&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhkeKiQDu6x96tQ6tIm0qGt3OdbFGR5r2CQ&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMVPeWDBt8of7_CzWthht5tyRVZnQT3ASoEA&s" alt=""></div>
+        
+
+    </div>
     <script>
-        var a = document.querySelector("#name");
-        var b = document.querySelector("#btt");
-        var c = document.querySelector("#pass");
-        var d = document.querySelector("#nums");
-        var e = document.querySelector("#cap");
-        var f = document.querySelector("#smal");
-        var g = document.querySelector("#sym");
-        var forms = document.querySelector("#sub");
+        const a = document.querySelectorAll(".btt");
+        const b = document.querySelectorAll(".imag"); 
+        const c = document.querySelector("#search");
 
-        b.addEventListener("click", async () => {
-            var pa = a.value;
-            if (pa) {
-                await navigator.clipboard.writeText(pa);
-                alert("Content copied to clipboard!");
-            } else {
-                alert("There is nothing to copy.");
-            }
-        });
+        c.addEventListener("keyup",(e)=>{
+             searchText = e.target.value.toLowerCase().trim();
 
-        function randoms(min, max) {
-            var limi = max - min + 1;
-            return String.fromCharCode(Math.floor(Math.random() * limi) + min);
+            b.forEach((imag)=>{
+                const data = imag.dataset.item;
+                if(data.includes(searchText)){
+                    imag.style.display="block"                }
+                 else{
+                    imag.style.display="none"
+                 }
+                })
+
+                a.forEach((button)=>{
+                    button.classList.remove("btn-clicked")
+                })
+
+                a[0].target.classList.add("btn-clicked")
+        })
+        
+        a.forEach((button)=>{
+            button.addEventListener("click",(e)=>{
+                e.preventDefault();
+                funs(e)
+                const btsss = e.target.dataset.filter;
+
+                b.forEach((imag=>{
+                    if(btsss=="all"){
+                    imag.style.display="block";
+                    }
+                    else{
+                        const btnn = imag.dataset.item;
+                        if(btnn==btsss){
+                            imag.style.display="block"
+                        }
+                        else{
+                            imag.style.display="none";
+                        }
+                    }
+                   
+                }))
+            })
+        })
+
+        function funs(e){
+            a.forEach((button)=>{
+                button.classList.remove("btn-clicked");
+
+            })
+            e.target.classList.add("btn-clicked");
         }
-
-        function capital() {
-            return randoms(65, 90);
-        }
-
-        function small() {
-            return randoms(97, 122);
-        }
-
-        function numbers() {
-            return randoms(48, 57);
-        }
-
-        function symbolss() {
-            var symbols = "~!@#$%^&*(){}[]<>?/\\|.,";
-            return symbols[Math.floor(Math.random() * symbols.length)];
-        }
-
-        var arr = [
-            { element: d, fun: numbers },
-            { element: e, fun: capital },
-            { element: f, fun: small },
-            { element: g, fun: symbolss }
-        ];
-
-        forms.addEventListener("submit", (e) => {
-            e.preventDefault();
-            var cot = parseInt(c.value);
-            var cots = "";
-
-            var cotss = arr.filter(({ element }) => element.checked);
-
-            for (let i = 0; i < cot; i++) {
-                var not = Math.floor(Math.random() * cotss.length);
-                var nots = cotss[not].fun();
-                cots += nots;
-            }
-            a.value = cots; 
-        });
     </script>
 </body>
 </html>
